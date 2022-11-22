@@ -1,0 +1,10 @@
+running sample node js app on terminal
+
+Code-save it on any folder as Dockerfile only and keep app.js file where dockerfile resists
+FROM node:alpine
+ADD . /app
+CMD node /app/app.js
+
+sudo docker build –t node-docker:v1 .
+sudo docker run node-docker
+
