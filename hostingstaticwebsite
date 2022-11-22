@@ -1,0 +1,10 @@
+Hosting webpages using docker containers
+
+Code-save it on any folder as Dockerfile only and keep all the webpages files in same folder
+FROM httpd:alpine
+COPY . /usr/local/apache2/htdocs/
+
+
+sudo docker build -t webpage1:1.0.0 .
+sudo docker run -itd --name ourwebpage -p 8181:80 webpage1:1.0.0
+
