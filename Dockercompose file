@@ -1,0 +1,574 @@
+msis@kubemaster:~/FullStackApp$ cd
+msis@kubemaster:~$ cd Documents/
+msis@kubemaster:~/Documents$ ls
+DevOps_Hands-On_Document.docx_0.odt
+msis@kubemaster:~/Documents$ cd 
+msis@kubemaster:~$ cd Desktop/
+msis@kubemaster:~/Desktop$ ls
+ AWSTASK1       AWSTASK1.pdf.odt   dockerexample         'linux_sys()'        runningsamplejs   test
+ AWSTASK1.odt   docker             hostingstaticwebsite   postman-linux-x64   Surrealdb         webpage
+msis@kubemaster:~/Desktop$ ls
+ AWSTASK1       AWSTASK1.pdf.odt   dockerexample         'linux_sys()'        runningsamplejs   test
+ AWSTASK1.odt   docker             hostingstaticwebsite   postman-linux-x64   Surrealdb         webpage
+msis@kubemaster:~/Desktop$ cd dockerexample/
+msis@kubemaster:~/Desktop/dockerexample$ ls
+msis@kubemaster:~/Desktop/dockerexample$ git clone https://github.com/KruthikaMP/FullStackApp.git
+Cloning into 'FullStackApp'...
+remote: Enumerating objects: 17, done.
+remote: Counting objects: 100% (17/17), done.
+remote: Compressing objects: 100% (13/13), done.
+remote: Total 17 (delta 0), reused 17 (delta 0), pack-reused 0
+Unpacking objects: 100% (17/17), 11.33 KiB | 313.00 KiB/s, done.
+msis@kubemaster:~/Desktop/dockerexample$ ls
+FullStackApp
+msis@kubemaster:~/Desktop/dockerexample$ cd FullStackApp/
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ ls
+db  docker-compose.yml  index.php  test.php
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ sudo docker-compose up
+[sudo] password for msis: 
+Recreating fullstackapp_db_1 ... 
+Recreating fullstackapp_phpmyadmin_1 ... 
+Recreating fullstackapp_www_1        ... 
+Recreating fullstackapp_www_1        ... error
+Recreating fullstackapp_db_1         ... done
+Recreating fullstackapp_phpmyadmin_1 ... done
+d55c94d7e270d6df5c648520758e71f86): Error starting userland proxy: listen tcp4 0.0.0.0:80: bind: address already in use
+
+ERROR: for www  Cannot start service www: driver failed programming external connectivity on endpoint fullstackapp_www_1 (638561772e2bd9cfcbbf9986af464b7d55c94d7e270d6df5c648520758e71f86): Error starting userland proxy: listen tcp4 0.0.0.0:80: bind: address already in use
+ERROR: Encountered errors while bringing up the project.
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ sudo docker ps 
+CONTAINER ID   IMAGE                   COMMAND                  CREATED          STATUS          PORTS                                   NAMES
+101e9b047ac6   phpmyadmin/phpmyadmin   "/docker-entrypoint.…"   52 seconds ago   Up 46 seconds   0.0.0.0:8001->80/tcp, :::8001->80/tcp   fullstackapp_phpmyadmin_1
+0b5aab18003c   mysql:latest            "docker-entrypoint.s…"   52 seconds ago   Up 46 seconds   3306/tcp, 33060/tcp                     fullstackapp_db_1
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ sudo docker rm -f 101 0b5
+101
+0b5
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ sudo docker ps 
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ sudo docker-compose up
+Removing fullstackapp_www_1
+Recreating 53a458791019_fullstackapp_www_1 ... 
+Recreating 53a458791019_fullstackapp_www_1 ... error
+Creating fullstackapp_db_1                 ... 
+WARNING: Host is already in use by another container
+
+ERROR: for 53a458791019_fullstackapp_www_1  Cannot start service www: driver failed programming external connectivity on endpoint fullstackapp_www_1 (680e6613745a26bab0Creating fullstackapp_db_1                 ... done
+
+ERROR: for www  Cannot start service www: driver failed programming external connectivity on endpoint fullstackapp_www_1 (680e6613745a26bab04fb0eeaa99b3c61c5f936f88efef167aba5595db9bfa1c): Error starting userland proxy: listen tcp4 0.0.0.0:80: bind: address already in use
+ERROR: Encountered errors while bringing up the project.
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ sudo docker images
+REPOSITORY              TAG       IMAGE ID       CREATED        SIZE
+node                    1.0.0     1899594232c9   2 days ago     171MB
+node                    alpine    9b78801b4058   8 days ago     171MB
+mysql                   latest    a3a2968869cf   8 days ago     538MB
+php                     apache    b26e8ec6140e   9 days ago     459MB
+phpmyadmin/phpmyadmin   latest    4a4023c7e22a   6 months ago   510MB
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ sudo docker rmi -f 189 9b7 a3a b26 4a4
+Untagged: node:1.0.0
+Deleted: sha256:1899594232c9498fb42070eec3afc1280d31a51e5e46e5015549cb04f68d46f3
+Deleted: sha256:d12234edb823978cd5304d746e9ae337fb3690c06dda37760b560bd23231a069
+Untagged: node:alpine
+Untagged: node@sha256:80844b6643f239c87fceae51e6540eeb054fc7114d979703770ec75250dcd03b
+Deleted: sha256:9b78801b40588ad8ab8db899135501465b0a2d2519ccda04d8f36943582c9ac2
+Untagged: php:apache
+Untagged: php@sha256:b2aef9c8c7a8afd986ff221d05e97c9ab60a702d0b691880bbed5b729affcbb8
+Deleted: sha256:b26e8ec6140e8d119f768de1f93ac4e35212bd450c7f91d74595a02b93affa29
+Error response from daemon: conflict: unable to delete a3a2968869cf (cannot be forced) - image is being used by running container b76d408a84a7
+Error response from daemon: conflict: unable to delete 4a4023c7e22a (cannot be forced) - image is being used by running container eda6e81858ea
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ sudo docker images
+REPOSITORY              TAG       IMAGE ID       CREATED        SIZE
+mysql                   latest    a3a2968869cf   8 days ago     538MB
+phpmyadmin/phpmyadmin   latest    4a4023c7e22a   6 months ago   510MB
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ sudo docker rmi -f a3a 4a4
+Error response from daemon: conflict: unable to delete a3a2968869cf (cannot be forced) - image is being used by running container b76d408a84a7
+Error response from daemon: conflict: unable to delete 4a4023c7e22a (cannot be forced) - image is being used by running container eda6e81858ea
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ sudo docker ps 
+CONTAINER ID   IMAGE                   COMMAND                  CREATED          STATUS          PORTS                                   NAMES
+eda6e81858ea   phpmyadmin/phpmyadmin   "/docker-entrypoint.…"   13 minutes ago   Up 13 minutes   0.0.0.0:8001->80/tcp, :::8001->80/tcp   fullstackapp_phpmyadmin_1
+b76d408a84a7   mysql:latest            "docker-entrypoint.s…"   13 minutes ago   Up 13 minutes   3306/tcp, 33060/tcp                     fullstackapp_db_1
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ sudo docker rm -f eda b76
+eda
+b76
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ sudo docker rmi -f a3a 4a4
+Untagged: mysql:latest
+Untagged: mysql@sha256:66efaaa129f12b1c5871508bc8481a9b28c5b388d74ac5d2a6fc314359bbef91
+Deleted: sha256:a3a2968869cf080dbbd2adaac9e4075cc358b50a1451ff5e2b9ae90551a4735f
+Deleted: sha256:d4a9afcd3bebd007a341fe71fff63c8105afecfcefe531022019a743db101ac8
+Deleted: sha256:81051dc0529b8845f4b552a1793d0fb58925a557c0cb10d34a35a4304d7f08ad
+Deleted: sha256:8b49314018f499a401232dc82e45303d125d64dbcc502bb37812c4f2d72bdde1
+Deleted: sha256:04b9dd758ba2d254286127ca65bfde408770caa9adc606a569ce8f40731faf0e
+Deleted: sha256:291bdd8e2bd56a854da3a88b6fd2d20947a134b870c5c685f72a1cc1c4603a5d
+Deleted: sha256:92a1bbbdf3b8b319439aaa732c9a78f8e5524ba0e06db3b5ad162be95b08e654
+Deleted: sha256:f2f732d7cb94b91828fedfb19bff43d5ff4d4c57d42013fc40dbcdaeb7f46a2a
+Deleted: sha256:4741f671f5fe8fdca41165b8dbd7197f0fd65d5742750e40ea67d9cb29c436ba
+Deleted: sha256:2bdec488566ade04dfbf57a7335f6dd1633173349659361ce9ab218ac6f7529b
+Deleted: sha256:b539216b9588bb6348bc2a78ff92305dd79c1661a365038fb1c66a67645f6be1
+Deleted: sha256:51c82b74fabc86a4c3e8afb6dc64f7816a7c935e8ea88086db9dd42d6766fb55
+Untagged: phpmyadmin/phpmyadmin:latest
+Untagged: phpmyadmin/phpmyadmin@sha256:ae6dadd9cf3c158e42937788f7255fa820ea3daef0349226d8d43f32e76535e1
+Deleted: sha256:4a4023c7e22af1cd61420e306e13a82eb9035eb109d981395647f305c6841f89
+Deleted: sha256:58814878b8dc66a8a822ca560ae21ce37e982d5ce545a572412c4d6e4acc17a6
+Deleted: sha256:dcffc106cfde735adfc8db2b0a4bc74271a08ee4c60afbde5ad6cc03b29b8372
+Deleted: sha256:eda6f8dd1b8ea95a88c4a8d5dbdfe4cb36a092413aafb01f1aad06dda4cb3952
+Deleted: sha256:9b9ba7a94bd623bc6f383355b2e63c442f465e95cc8851d9f58ba9e88c9378ba
+Deleted: sha256:aa1d6e3769b9d3fb1ccfff0a3f643ceb26a90f94d78676bbbcfb56c159ab175f
+Deleted: sha256:fc657b84449b4c5cfd6b002d0e8c14cd5cda7181191d542bc42e55e243c44c9a
+Deleted: sha256:6f5fff743c8b16e7065a9b13d0f094a9b50e49f2995a9ba8b45d7422e518255b
+Deleted: sha256:81c4687675ecde35dcb94906c116a2d451eb2e0e0aaa5974395a2b6746335a5d
+Deleted: sha256:c0247f913af1e686aabe76c9ded0fd32acb7096ebf5851ff2ecd5eaa63fafee7
+Deleted: sha256:5b40d538203ecb47d87f6170dc81273b6e6d7eeef0b341e66e310797eb8cbcf0
+Deleted: sha256:56924ba0adce6edf1a15d6ce7ec570b6c84e4499d435f83171fe4fc363e1840b
+Deleted: sha256:a3a3e0e5900157cdf87b8e49963f1192e41fc5bee80f510c7f5db1d8c0f918b7
+Deleted: sha256:f6943d88f3a10b25e5d37690196d2a889ad24315f8a9e3013befb5f8a01af388
+Deleted: sha256:b201b5dc3726907d5ff8895ffc4d280af8e496aea100cf22536c0699e1788ea0
+Deleted: sha256:bb5e7a892aa5bb521c52ebdbbabc498d4cf1cbadbfdc3eb9859978a88b2bc5bb
+Deleted: sha256:0fc164e1f88f1c17c2b8ed1eae553835606cdda0050f9e725914963d17c51cdd
+Deleted: sha256:0489f41634bcd1f757c91991e1fe4d0b3acc879957012aa1147f56b5d530fdb3
+Deleted: sha256:fd95118eade99a75b949f634a0994e0f0732ff18c2573fabdfc8d4f95b092f0e
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ sudo docker images
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ sudo docker ps 
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ sudo docker ps -a
+CONTAINER ID   IMAGE          COMMAND                  CREATED          STATUS                    PORTS     NAMES
+318a9dffa233   b26e8ec6140e   "docker-php-entrypoi…"   14 minutes ago   Created                             fullstackapp_www_1
+f7b6901e4696   1899594232c9   "docker-entrypoint.s…"   2 days ago       Exited (0) 2 days ago               clever_shockley
+c7f0642e2cc5   1899594232c9   "docker-entrypoint.s…"   2 days ago       Exited (126) 2 days ago             keen_haslett
+a593c93696a6   243e17b451c1   "docker-entrypoint.s…"   2 days ago       Exited (0) 2 days ago               interesting_hypatia
+53a458791019   b26e8ec6140e   "docker-php-entrypoi…"   2 days ago       Created                             53a458791019_fullstackapp_www_1
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ sudo docker rmi 318 f7b c7f a59 53a
+Error: No such image: 318
+Error: No such image: f7b
+Error: No such image: c7f
+Error: No such image: a59
+Error: No such image: 53a
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ sudo docker rm -rf 318 f7b c7f a59 53a
+unknown shorthand flag: 'r' in -rf
+See 'docker rm --help'.
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ sudo docker rm -f 318 f7b c7f a59 53a
+318
+f7b
+c7f
+a59
+53a
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ sudo docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ sudo docker images
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ ls
+db  docker-compose.yml  index.php  test.php
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ sudo docker-compose up
+Pulling db (mysql:latest)...
+latest: Pulling from library/mysql
+0ed027b72ddc: Pull complete
+0296159747f1: Pull complete
+3d2f9b664bd3: Pull complete
+df6519f81c26: Pull complete
+36bb5e56d458: Pull complete
+054e8fde88d0: Pull complete
+f2b494c50c7f: Pull complete
+132bc0d471b8: Pull complete
+135ec7033a05: Pull complete
+5961f0272472: Pull complete
+75b5f7a3d3a4: Pull complete
+Digest: sha256:3d7ae561cf6095f6aca8eb7830e1d14734227b1fb4748092f2be2cfbccf7d614
+Status: Downloaded newer image for mysql:latest
+Pulling www (php:apache)...
+apache: Pulling from library/php
+025c56f98b67: Pull complete
+db4ab4019a6f: Pull complete
+19c3d46c565a: Pull complete
+7d52c3b9728a: Pull complete
+075f56345cf3: Pull complete
+84f1e4bf8884: Pull complete
+33c195cea794: Pull complete
+f49dd140af36: Pull complete
+046079c853e0: Pull complete
+0fe28a11d3fa: Pull complete
+43bcad68c39e: Pull complete
+bdf0988dad47: Pull complete
+88775ffc8b1c: Pull complete
+Digest: sha256:18de42e1c0ba88f082dc6cb0e96a666aa1e0ad0527231274414daf1d99bde9f6
+Status: Downloaded newer image for php:apache
+Pulling phpmyadmin (phpmyadmin/phpmyadmin:)...
+latest: Pulling from phpmyadmin/phpmyadmin
+214ca5fb9032: Pull complete
+cd813a1b2cb8: Pull complete
+63cf7574573d: Pull complete
+54c27146d16e: Pull complete
+078f4450f949: Pull complete
+5f145e355bc4: Pull complete
+fdc797cb9eea: Pull complete
+af45e7153a31: Pull complete
+b546fbaf263b: Pull complete
+16dd2cabbcd2: Pull complete
+30a426b49280: Pull complete
+c94e73d5f13e: Pull complete
+2f5a3464a278: Pull complete
+a4f9f723c297: Pull complete
+5b04d16a8086: Pull complete
+2a3d1fa22772: Pull complete
+ef56affc4552: Pull complete
+9b9b44731108: Pull complete
+Digest: sha256:ae6dadd9cf3c158e42937788f7255fa820ea3daef0349226d8d43f32e76535e1
+Status: Downloaded newer image for phpmyadmin/phpmyadmin:latest
+Creating fullstackapp_www_1 ... 
+Creating fullstackapp_www_1        ... error
+Creating fullstackapp_phpmyadmin_1 ... 
+WARNING: Host is already in use by another container
+
+Creating fullstackapp_db_1         ... done
+Creating fullstackapp_phpmyadmin_1 ... done
+
+ERROR: for www  Cannot start service www: driver failed programming external connectivity on endpoint fullstackapp_www_1 (5288de28adc7f1ed13cc448216a5e192c01d3d3c0d536836fabe8b68652945aa): Error starting userland proxy: listen tcp4 0.0.0.0:80: bind: address already in use
+ERROR: Encountered errors while bringing up the project.
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ gedit docker-compose.yml 
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ gedit docker-compose.yml 
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ ls
+db  docker-compose.yml  index.php  test.php
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ ^C
+msis@kubemaster:~/Desktop/dockerexample/FullStackApp$ cd
+msis@kubemaster:~$ sudo git clone https://github.com/djgit17/FullStackApp1.git
+Cloning into 'FullStackApp1'...
+remote: Enumerating objects: 26, done.
+remote: Counting objects: 100% (26/26), done.
+remote: Compressing objects: 100% (22/22), done.
+remote: Total 26 (delta 3), reused 17 (delta 0), pack-reused 0
+Unpacking objects: 100% (26/26), 15.19 KiB | 2.17 MiB/s, done.
+msis@kubemaster:~$ cd FullStackApp
+FullStackApp/  FullStackApp1/ 
+msis@kubemaster:~$ cd FullStackApp1/
+msis@kubemaster:~/FullStackApp1$ ls
+config.php  db  docker-compose_updated.yml  docker-compose.yml  Dockerfile_Web_App  index.php  test.php
+msis@kubemaster:~/FullStackApp1$ sudo vi docker-compose.yml 
+msis@kubemaster:~/FullStackApp1$ ls
+config.php  db  docker-compose_updated.yml  docker-compose.yml  Dockerfile_Web_App  index.php  test.php
+msis@kubemaster:~/FullStackApp1$ cd db/
+msis@kubemaster:~/FullStackApp1/db$ ls
+users.sql
+msis@kubemaster:~/FullStackApp1/db$ cd ..
+msis@kubemaster:~/FullStackApp1$ vi Dockerfile_Web_App 
+msis@kubemaster:~/FullStackApp1$ sudo vi docker-compose_updated.yml 
+msis@kubemaster:~/FullStackApp1$ sudo docker-compose up --build -f dockerer-compose_updated.yml -d
+Builds, (re)creates, starts, and attaches to containers for a service.
+
+Unless they are already running, this command also starts any linked services.
+
+The `docker-compose up` command aggregates the output of each container. When
+the command exits, all containers are stopped. Running `docker-compose up -d`
+starts the containers in the background and leaves them running.
+
+If there are existing containers for a service, and the service's configuration
+or image was changed after the container's creation, `docker-compose up` picks
+up the changes by stopping and recreating the containers (preserving mounted
+volumes). To prevent Compose from picking up changes, use the `--no-recreate`
+flag.
+
+If you want to force Compose to stop and recreate all containers, use the
+`--force-recreate` flag.
+
+Usage: up [options] [--scale SERVICE=NUM...] [SERVICE...]
+
+Options:
+    -d, --detach               Detached mode: Run containers in the background,
+                               print new container names. Incompatible with
+                               --abort-on-container-exit.
+    --no-color                 Produce monochrome output.
+    --quiet-pull               Pull without printing progress information
+    --no-deps                  Don't start linked services.
+    --force-recreate           Recreate containers even if their configuration
+                               and image haven't changed.
+    --always-recreate-deps     Recreate dependent containers.
+                               Incompatible with --no-recreate.
+    --no-recreate              If containers already exist, don't recreate
+                               them. Incompatible with --force-recreate and -V.
+    --no-build                 Don't build an image, even if it's missing.
+    --no-start                 Don't start the services after creating them.
+    --build                    Build images before starting containers.
+    --abort-on-container-exit  Stops all containers if any container was
+                               stopped. Incompatible with -d.
+    -t, --timeout TIMEOUT      Use this timeout in seconds for container
+                               shutdown when attached or when containers are
+                               already running. (default: 10)
+    -V, --renew-anon-volumes   Recreate anonymous volumes instead of retrieving
+                               data from the previous containers.
+    --remove-orphans           Remove containers for services not defined
+                               in the Compose file.
+    --exit-code-from SERVICE   Return the exit code of the selected service
+                               container. Implies --abort-on-container-exit.
+    --scale SERVICE=NUM        Scale SERVICE to NUM instances. Overrides the
+                               `scale` setting in the Compose file if present.
+msis@kubemaster:~/FullStackApp1$ sudo docker-compose -f docker-compose_updated.yml up --build -d
+Creating network "fullstackapp1_default" with the default driver
+Building www
+Step 1/5 : FROM php:apache
+ ---> 9f26c9013b57
+Step 2/5 : RUN apt-get update -y
+ ---> Running in 6b192576b3d4
+Get:1 http://deb.debian.org/debian bullseye InRelease [116 kB]
+Get:2 http://deb.debian.org/debian-security bullseye-security InRelease [48.4 kB]
+Get:3 http://deb.debian.org/debian bullseye-updates InRelease [44.1 kB]
+Get:4 http://deb.debian.org/debian bullseye/main amd64 Packages [8184 kB]
+Get:5 http://deb.debian.org/debian-security bullseye-security/main amd64 Packages [209 kB]
+Get:6 http://deb.debian.org/debian bullseye-updates/main amd64 Packages [14.6 kB]
+Fetched 8615 kB in 2s (3819 kB/s)
+Reading package lists...
+Removing intermediate container 6b192576b3d4
+ ---> a19e941edfc3
+Step 3/5 : RUN docker-php-ext-install mysqli
+ ---> Running in 9a326b0172ed
+Configuring for:
+PHP Api Version:         20210902
+Zend Module Api No:      20210902
+Zend Extension Api No:   420210902
+checking for grep that handles long lines and -e... /bin/grep
+checking for egrep... /bin/grep -E
+checking for a sed that does not truncate output... /bin/sed
+checking for pkg-config... /usr/bin/pkg-config
+checking pkg-config is at least version 0.9.0... yes
+checking for cc... cc
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether cc accepts -g... yes
+checking for cc option to accept ISO C89... none needed
+checking how to run the C preprocessor... cc -E
+checking for icc... no
+checking for suncc... no
+checking for system library directory... lib
+checking if compiler supports -Wl,-rpath,... yes
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... x86_64-pc-linux-gnu
+checking target system type... x86_64-pc-linux-gnu
+checking for PHP prefix... /usr/local
+checking for PHP includes... -I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib
+checking for PHP extension directory... /usr/local/lib/php/extensions/no-debug-non-zts-20210902
+checking for PHP installed headers prefix... /usr/local/include/php
+checking if debug is enabled... no
+checking if zts is enabled... no
+checking for gawk... no
+checking for nawk... nawk
+checking if nawk is broken... no
+checking for MySQLi support... yes, shared
+checking for specified location of the MySQL UNIX socket... no
+checking for MySQL UNIX socket location... no
+checking for a sed that does not truncate output... /bin/sed
+checking for ld used by cc... /usr/bin/ld
+checking if the linker (/usr/bin/ld) is GNU ld... yes
+checking for /usr/bin/ld option to reload object files... -r
+checking for BSD-compatible nm... /usr/bin/nm -B
+checking whether ln -s works... yes
+checking how to recognize dependent libraries... pass_all
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking dlfcn.h usability... yes
+checking dlfcn.h presence... yes
+checking for dlfcn.h... yes
+checking the maximum length of command line arguments... 1572864
+checking command to parse /usr/bin/nm -B output from cc object... ok
+checking for objdir... .libs
+checking for ar... ar
+checking for ranlib... ranlib
+checking for strip... strip
+checking if cc supports -fno-rtti -fno-exceptions... no
+checking for cc option to produce PIC... -fPIC
+checking if cc PIC flag -fPIC works... yes
+checking if cc static flag -static works... yes
+checking if cc supports -c -o file.o... yes
+checking whether the cc linker (/usr/bin/ld -m elf_x86_64) supports shared libraries... yes
+checking whether -lc should be explicitly linked in... no
+checking dynamic linker characteristics... GNU/Linux ld.so
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... yes
+checking whether to build static libraries... no
+
+creating libtool
+appending configuration tag "CXX" to libtool
+configure: patching config.h.in
+configure: creating ./config.status
+config.status: creating config.h
+/bin/bash /usr/src/php/ext/mysqli/libtool --mode=compile cc -I. -I/usr/src/php/ext/mysqli -I/usr/src/php/ext/mysqli/include -I/usr/src/php/ext/mysqli/main -I/usr/src/php/ext/mysqli -I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib  -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DHAVE_CONFIG_H  -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64   -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -DZEND_COMPILE_DL_EXT=1 -c /usr/src/php/ext/mysqli/mysqli.c -o mysqli.lo  -MMD -MF mysqli.dep -MT mysqli.lo
+mkdir .libs
+ cc -I. -I/usr/src/php/ext/mysqli -I/usr/src/php/ext/mysqli/include -I/usr/src/php/ext/mysqli/main -I/usr/src/php/ext/mysqli -I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DHAVE_CONFIG_H -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -DZEND_COMPILE_DL_EXT=1 -c /usr/src/php/ext/mysqli/mysqli.c -MMD -MF mysqli.dep -MT mysqli.lo  -fPIC -DPIC -o .libs/mysqli.o
+/bin/bash /usr/src/php/ext/mysqli/libtool --mode=compile cc -I. -I/usr/src/php/ext/mysqli -I/usr/src/php/ext/mysqli/include -I/usr/src/php/ext/mysqli/main -I/usr/src/php/ext/mysqli -I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib  -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DHAVE_CONFIG_H  -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64   -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -DZEND_COMPILE_DL_EXT=1 -c /usr/src/php/ext/mysqli/mysqli_api.c -o mysqli_api.lo  -MMD -MF mysqli_api.dep -MT mysqli_api.lo
+ cc -I. -I/usr/src/php/ext/mysqli -I/usr/src/php/ext/mysqli/include -I/usr/src/php/ext/mysqli/main -I/usr/src/php/ext/mysqli -I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DHAVE_CONFIG_H -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -DZEND_COMPILE_DL_EXT=1 -c /usr/src/php/ext/mysqli/mysqli_api.c -MMD -MF mysqli_api.dep -MT mysqli_api.lo  -fPIC -DPIC -o .libs/mysqli_api.o
+/bin/bash /usr/src/php/ext/mysqli/libtool --mode=compile cc -I. -I/usr/src/php/ext/mysqli -I/usr/src/php/ext/mysqli/include -I/usr/src/php/ext/mysqli/main -I/usr/src/php/ext/mysqli -I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib  -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DHAVE_CONFIG_H  -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64   -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -DZEND_COMPILE_DL_EXT=1 -c /usr/src/php/ext/mysqli/mysqli_prop.c -o mysqli_prop.lo  -MMD -MF mysqli_prop.dep -MT mysqli_prop.lo
+ cc -I. -I/usr/src/php/ext/mysqli -I/usr/src/php/ext/mysqli/include -I/usr/src/php/ext/mysqli/main -I/usr/src/php/ext/mysqli -I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DHAVE_CONFIG_H -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -DZEND_COMPILE_DL_EXT=1 -c /usr/src/php/ext/mysqli/mysqli_prop.c -MMD -MF mysqli_prop.dep -MT mysqli_prop.lo  -fPIC -DPIC -o .libs/mysqli_prop.o
+/bin/bash /usr/src/php/ext/mysqli/libtool --mode=compile cc -I. -I/usr/src/php/ext/mysqli -I/usr/src/php/ext/mysqli/include -I/usr/src/php/ext/mysqli/main -I/usr/src/php/ext/mysqli -I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib  -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DHAVE_CONFIG_H  -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64   -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -DZEND_COMPILE_DL_EXT=1 -c /usr/src/php/ext/mysqli/mysqli_nonapi.c -o mysqli_nonapi.lo  -MMD -MF mysqli_nonapi.dep -MT mysqli_nonapi.lo
+ cc -I. -I/usr/src/php/ext/mysqli -I/usr/src/php/ext/mysqli/include -I/usr/src/php/ext/mysqli/main -I/usr/src/php/ext/mysqli -I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DHAVE_CONFIG_H -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -DZEND_COMPILE_DL_EXT=1 -c /usr/src/php/ext/mysqli/mysqli_nonapi.c -MMD -MF mysqli_nonapi.dep -MT mysqli_nonapi.lo  -fPIC -DPIC -o .libs/mysqli_nonapi.o
+/bin/bash /usr/src/php/ext/mysqli/libtool --mode=compile cc -I. -I/usr/src/php/ext/mysqli -I/usr/src/php/ext/mysqli/include -I/usr/src/php/ext/mysqli/main -I/usr/src/php/ext/mysqli -I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib  -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DHAVE_CONFIG_H  -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64   -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -DZEND_COMPILE_DL_EXT=1 -c /usr/src/php/ext/mysqli/mysqli_report.c -o mysqli_report.lo  -MMD -MF mysqli_report.dep -MT mysqli_report.lo
+ cc -I. -I/usr/src/php/ext/mysqli -I/usr/src/php/ext/mysqli/include -I/usr/src/php/ext/mysqli/main -I/usr/src/php/ext/mysqli -I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DHAVE_CONFIG_H -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -DZEND_COMPILE_DL_EXT=1 -c /usr/src/php/ext/mysqli/mysqli_report.c -MMD -MF mysqli_report.dep -MT mysqli_report.lo  -fPIC -DPIC -o .libs/mysqli_report.o
+/bin/bash /usr/src/php/ext/mysqli/libtool --mode=compile cc -I. -I/usr/src/php/ext/mysqli -I/usr/src/php/ext/mysqli/include -I/usr/src/php/ext/mysqli/main -I/usr/src/php/ext/mysqli -I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib  -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DHAVE_CONFIG_H  -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64   -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -DZEND_COMPILE_DL_EXT=1 -c /usr/src/php/ext/mysqli/mysqli_driver.c -o mysqli_driver.lo  -MMD -MF mysqli_driver.dep -MT mysqli_driver.lo
+ cc -I. -I/usr/src/php/ext/mysqli -I/usr/src/php/ext/mysqli/include -I/usr/src/php/ext/mysqli/main -I/usr/src/php/ext/mysqli -I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DHAVE_CONFIG_H -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -DZEND_COMPILE_DL_EXT=1 -c /usr/src/php/ext/mysqli/mysqli_driver.c -MMD -MF mysqli_driver.dep -MT mysqli_driver.lo  -fPIC -DPIC -o .libs/mysqli_driver.o
+/bin/bash /usr/src/php/ext/mysqli/libtool --mode=compile cc -I. -I/usr/src/php/ext/mysqli -I/usr/src/php/ext/mysqli/include -I/usr/src/php/ext/mysqli/main -I/usr/src/php/ext/mysqli -I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib  -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DHAVE_CONFIG_H  -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64   -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -DZEND_COMPILE_DL_EXT=1 -c /usr/src/php/ext/mysqli/mysqli_warning.c -o mysqli_warning.lo  -MMD -MF mysqli_warning.dep -MT mysqli_warning.lo
+ cc -I. -I/usr/src/php/ext/mysqli -I/usr/src/php/ext/mysqli/include -I/usr/src/php/ext/mysqli/main -I/usr/src/php/ext/mysqli -I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DHAVE_CONFIG_H -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -DZEND_COMPILE_DL_EXT=1 -c /usr/src/php/ext/mysqli/mysqli_warning.c -MMD -MF mysqli_warning.dep -MT mysqli_warning.lo  -fPIC -DPIC -o .libs/mysqli_warning.o
+/bin/bash /usr/src/php/ext/mysqli/libtool --mode=compile cc -I. -I/usr/src/php/ext/mysqli -I/usr/src/php/ext/mysqli/include -I/usr/src/php/ext/mysqli/main -I/usr/src/php/ext/mysqli -I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib  -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DHAVE_CONFIG_H  -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64   -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -DZEND_COMPILE_DL_EXT=1 -c /usr/src/php/ext/mysqli/mysqli_exception.c -o mysqli_exception.lo  -MMD -MF mysqli_exception.dep -MT mysqli_exception.lo
+ cc -I. -I/usr/src/php/ext/mysqli -I/usr/src/php/ext/mysqli/include -I/usr/src/php/ext/mysqli/main -I/usr/src/php/ext/mysqli -I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DHAVE_CONFIG_H -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -DZEND_COMPILE_DL_EXT=1 -c /usr/src/php/ext/mysqli/mysqli_exception.c -MMD -MF mysqli_exception.dep -MT mysqli_exception.lo  -fPIC -DPIC -o .libs/mysqli_exception.o
+/bin/bash /usr/src/php/ext/mysqli/libtool --mode=compile cc -I. -I/usr/src/php/ext/mysqli -I/usr/src/php/ext/mysqli/include -I/usr/src/php/ext/mysqli/main -I/usr/src/php/ext/mysqli -I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib  -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DHAVE_CONFIG_H  -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64   -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -DZEND_COMPILE_DL_EXT=1 -c /usr/src/php/ext/mysqli/mysqli_result_iterator.c -o mysqli_result_iterator.lo  -MMD -MF mysqli_result_iterator.dep -MT mysqli_result_iterator.lo
+ cc -I. -I/usr/src/php/ext/mysqli -I/usr/src/php/ext/mysqli/include -I/usr/src/php/ext/mysqli/main -I/usr/src/php/ext/mysqli -I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DHAVE_CONFIG_H -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DZEND_ENABLE_STATIC_TSRMLS_CACHE=1 -DZEND_COMPILE_DL_EXT=1 -c /usr/src/php/ext/mysqli/mysqli_result_iterator.c -MMD -MF mysqli_result_iterator.dep -MT mysqli_result_iterator.lo  -fPIC -DPIC -o .libs/mysqli_result_iterator.o
+/bin/bash /usr/src/php/ext/mysqli/libtool --mode=link cc -shared -I/usr/src/php/ext/mysqli/include -I/usr/src/php/ext/mysqli/main -I/usr/src/php/ext/mysqli -I/usr/local/include/php -I/usr/local/include/php/main -I/usr/local/include/php/TSRM -I/usr/local/include/php/Zend -I/usr/local/include/php/ext -I/usr/local/include/php/ext/date/lib  -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64 -DHAVE_CONFIG_H  -fstack-protector-strong -fpic -fpie -O2 -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -Wl,-O1 -pie  -o mysqli.la -export-dynamic -avoid-version -prefer-pic -module -rpath /usr/src/php/ext/mysqli/modules  mysqli.lo mysqli_api.lo mysqli_prop.lo mysqli_nonapi.lo mysqli_report.lo mysqli_driver.lo mysqli_warning.lo mysqli_exception.lo mysqli_result_iterator.lo 
+cc -shared  .libs/mysqli.o .libs/mysqli_api.o .libs/mysqli_prop.o .libs/mysqli_nonapi.o .libs/mysqli_report.o .libs/mysqli_driver.o .libs/mysqli_warning.o .libs/mysqli_exception.o .libs/mysqli_result_iterator.o   -Wl,-O1 -Wl,-soname -Wl,mysqli.so -o .libs/mysqli.so
+creating mysqli.la
+(cd .libs && rm -f mysqli.la && ln -s ../mysqli.la mysqli.la)
+/bin/bash /usr/src/php/ext/mysqli/libtool --mode=install cp ./mysqli.la /usr/src/php/ext/mysqli/modules
+cp ./.libs/mysqli.so /usr/src/php/ext/mysqli/modules/mysqli.so
+cp ./.libs/mysqli.lai /usr/src/php/ext/mysqli/modules/mysqli.la
+PATH="$PATH:/sbin" ldconfig -n /usr/src/php/ext/mysqli/modules
+----------------------------------------------------------------------
+Libraries have been installed in:
+   /usr/src/php/ext/mysqli/modules
+
+If you ever happen to want to link against installed libraries
+in a given directory, LIBDIR, you must either use libtool, and
+specify the full pathname of the library, or use the `-LLIBDIR'
+flag during linking and do at least one of the following:
+   - add LIBDIR to the `LD_LIBRARY_PATH' environment variable
+     during execution
+   - add LIBDIR to the `LD_RUN_PATH' environment variable
+     during linking
+   - use the `-Wl,--rpath -Wl,LIBDIR' linker flag
+   - have your system administrator add LIBDIR to `/etc/ld.so.conf'
+
+See any operating system documentation about shared libraries for
+more information, such as the ld(1) and ld.so(8) manual pages.
+----------------------------------------------------------------------
+
+Build complete.
+Don't forget to run 'make test'.
+
++ strip --strip-all modules/mysqli.so
+Installing shared extensions:     /usr/local/lib/php/extensions/no-debug-non-zts-20210902/
+Installing header files:          /usr/local/include/php/
+find . -name \*.gcno -o -name \*.gcda | xargs rm -f
+find . -name \*.lo -o -name \*.o -o -name \*.dep | xargs rm -f
+find . -name \*.la -o -name \*.a | xargs rm -f
+find . -name \*.so | xargs rm -f
+find . -name .libs -a -type d|xargs rm -rf
+rm -f libphp.la      modules/* libs/*
+rm -f ext/opcache/jit/zend_jit_x86.c
+rm -f ext/opcache/jit/zend_jit_arm64.c
+Removing intermediate container 9a326b0172ed
+ ---> 977f14e7172c
+Step 4/5 : COPY . /var/www/html/
+ ---> db1462f59abe
+Step 5/5 : EXPOSE 80
+ ---> Running in 11c259f8f267
+Removing intermediate container 11c259f8f267
+ ---> c9b648ea3fef
+Successfully built c9b648ea3fef
+Successfully tagged fullstackapp1_www:latest
+Creating www ... 
+Creating db  ... 
+Creating fullstackapp1_phpmyadmin_1 ... 
+Creating fullstackapp1_phpmyadmin_1 ... error
+Creating www                        ... done
+Creating db                         ... done
+bed2e1022544aa5e03eac8e6251d9bbd4c1b26a7f9c5ebb363cb729b): Bind for 0.0.0.0:8001 failed: port is already allocated
+
+ERROR: for phpmyadmin  Cannot start service phpmyadmin: driver failed programming external connectivity on endpoint fullstackapp1_phpmyadmin_1 (1ff6fafbbed2e1022544aa5e03eac8e6251d9bbd4c1b26a7f9c5ebb363cb729b): Bind for 0.0.0.0:8001 failed: port is already allocated
+ERROR: Encountered errors while bringing up the project.
+msis@kubemaster:~/FullStackApp1$ sudo docker ps
+CONTAINER ID   IMAGE                   COMMAND                  CREATED          STATUS          PORTS                                                                          NAMES
+372471fb7983   fullstackapp1_www       "docker-php-entrypoi…"   10 seconds ago   Up 5 seconds    0.0.0.0:443->443/tcp, :::443->443/tcp, 0.0.0.0:3000->80/tcp, :::3000->80/tcp   www
+ca6b2664b44e   mysql:latest            "docker-entrypoint.s…"   10 seconds ago   Up 4 seconds    3306/tcp, 33060/tcp                                                            db
+94b77b7e0c6d   mysql:latest            "docker-entrypoint.s…"   19 minutes ago   Up 19 minutes   3306/tcp, 33060/tcp                                                            fullstackapp_db_1
+33acbac92815   phpmyadmin/phpmyadmin   "/docker-entrypoint.…"   19 minutes ago   Up 19 minutes   0.0.0.0:8001->80/tcp, :::8001->80/tcp                                          fullstackapp_phpmyadmin_1
+msis@kubemaster:~/FullStackApp1$ sudo docker rm -f 372471fb7983 ca6b2664b44e 94b77b7e0c6d 33acbac92815
+372471fb7983
+ca6b2664b44e
+94b77b7e0c6d
+33acbac92815
+msis@kubemaster:~/FullStackApp1$ sudo docker-compose -f docker-compose_updated.yml up --build -d
+Building www
+Step 1/5 : FROM php:apache
+ ---> 9f26c9013b57
+Step 2/5 : RUN apt-get update -y
+ ---> Using cache
+ ---> a19e941edfc3
+Step 3/5 : RUN docker-php-ext-install mysqli
+ ---> Using cache
+ ---> 977f14e7172c
+Step 4/5 : COPY . /var/www/html/
+ ---> Using cache
+ ---> db1462f59abe
+Step 5/5 : EXPOSE 80
+ ---> Using cache
+ ---> c9b648ea3fef
+Successfully built c9b648ea3fef
+Successfully tagged fullstackapp1_www:latest
+Creating db                         ... done
+Starting fullstackapp1_phpmyadmin_1 ... done
+Creating www                        ... done
+msis@kubemaster:~/FullStackApp1$ sudo docker ps
+CONTAINER ID   IMAGE                   COMMAND                  CREATED          STATUS         PORTS                                                                          NAMES
+18efff48286b   fullstackapp1_www       "docker-php-entrypoi…"   8 seconds ago    Up 3 seconds   0.0.0.0:443->443/tcp, :::443->443/tcp, 0.0.0.0:3000->80/tcp, :::3000->80/tcp   www
+5a1f8055e720   mysql:latest            "docker-entrypoint.s…"   8 seconds ago    Up 3 seconds   3306/tcp, 33060/tcp                                                            db
+375ab8d9f7bc   phpmyadmin/phpmyadmin   "/docker-entrypoint.…"   54 seconds ago   Up 5 seconds   0.0.0.0:8001->80/tcp, :::8001->80/tcp                                          fullstackapp1_phpmyadmin_1
+msis@kubemaster:~/FullStackApp1$ vi docker-compose_updated.yml 
+msis@kubemaster:~/FullStackApp1$ sudo docker ps
+CONTAINER ID   IMAGE                   COMMAND                  CREATED              STATUS              PORTS                                                                          NAMES
+18efff48286b   fullstackapp1_www       "docker-php-entrypoi…"   About a minute ago   Up About a minute   0.0.0.0:443->443/tcp, :::443->443/tcp, 0.0.0.0:3000->80/tcp, :::3000->80/tcp   www
+5a1f8055e720   mysql:latest            "docker-entrypoint.s…"   About a minute ago   Up About a minute   3306/tcp, 33060/tcp                                                            db
+375ab8d9f7bc   phpmyadmin/phpmyadmin   "/docker-entrypoint.…"   2 minutes ago        Up About a minute   0.0.0.0:8001->80/tcp, :::8001->80/tcp                                          fullstackapp1_phpmyadmin_1
+msis@kubemaster:~/FullStackApp1$ sudo docker exec -it db bash
+bash-4.4# ls
+bin  boot  dev	docker-entrypoint-initdb.d  entrypoint.sh  etc	home  lib  lib64  media  mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var
+bash-4.4# mysql -u php_docker -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| performance_schema |
+| php_docker         |
++--------------------+
+3 rows in set (0.02 sec)
+
+mysql> exit
+Bye
+bash-4.4# exit                  
+exit
+msis@kubemaster:~/FullStackApp1$ sudo docker exec -it www bash
+root@18efff48286b:/var/www/html# ls
+Dockerfile_Web_App  config.php	db  docker-compose.yml	docker-compose_updated.yml  index.php  test.php
+root@18efff48286b:/var/www/html# exit
+exit
+msis@kubemaster:~/FullStackApp1$ sudo docker-compose -f docker-compose_updated.yml down
+Stopping www                        ... done
+Stopping db                         ... done
+Stopping fullstackapp1_phpmyadmin_1 ... done
+Removing www                        ... done
+Removing db                         ... done
+Removing fullstackapp1_phpmyadmin_1 ... done
+Removing network fullstackapp1_default
+msis@kubemaster:~/FullStackApp1$ ls
+config.php  db  docker-compose_updated.yml  docker-compose.yml  Dockerfile_Web_App  index.php  test.php
+msis@kubemaster:~/FullStackApp1$ sudo docker ps 
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+msis@kubemaster:~/FullStackApp1$ 
