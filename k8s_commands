@@ -1,0 +1,301 @@
+ 1570  docker ps -a
+ 1571  sudo docker run -itd --name myweb web:v1
+ 1572  docker ps
+ 1573  sudo docker run -itd --name myweb -p 3000:80 web:v1
+ 1574  docker ps
+ 1575  sudo docker run -itd --name myweb1 -p 3000:80 web:v1
+ 1576  docker ps
+ 1577  sudo docker rm -f d78
+ 1578  sudo docker run -itd --name myweb -p 3000:80 web:v1
+ 1579  sudo docker run -itd --name myweb -p 3012:80 web:v1
+ 1580  sudo docker run -itd --name myweb1 -p 3012:80 web:v1
+ 1581  sudo docker run -itd --name myweb54 -p 3012:80 web:v1
+ 1582  docker ps
+ 1583  sudo nano Dockerfile
+ 1584  sudo docker build -t web:v2 .
+ 1585  sudo hostname
+ 1586  sudo vi /etc/hostname 
+ 1587  sudo hostname msis.kubemaster.com
+ 1588  sudo vi /etc/hosts
+ 1589  sudo docker ps
+ 1590  sudo curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add
+ 1591  sudo apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main"
+ 1592  sudo apt install kubeadm kubelet kubectl kubernetes-cni
+ 1593  sudo swapoff -a
+ 1594  sudo kubeadm init
+ 1595  sudo apt-get install docker.io
+ 1596  sudo kubeadm init
+ 1597  [ERROR CRI]: container runtime is not running:sudo systemctl restart containerd
+ 1598  sudo systemctl restart containerd
+ 1599  sudo kubeadm init
+ 1600  sudo systemctl status containerd
+ 1601  sudo swapoff -a
+ 1602  sudo kubeadm init
+ 1603  sudo apt install -y containerd.io
+ 1604  sudo kubeadm init
+ 1605  sudo systemctl restart containerd
+ 1606  sudo kubeadm init
+ 1607  sudo rm /etc/containerd/config.toml
+ 1608  sudo systemctl restart containerd
+ 1609  sudo kubeadm init
+ 1610  sudo  mkdir -p $HOME/.kube
+ 1611  sudo kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+ 1612  sudo kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+ 1613  sudo vi weavenet_create.yaml
+ 1614  sudo kubectl apply -f weavenet_create.yaml 
+ 1615  kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+ 1616  sudo kubectl get pods --all-namespaces
+ 1617  sudo kubectl get pods 
+ 1618  sudo kubectl get nodes
+ 1619  kubeadm join 172.16.51.40:6443 --token tc74sf.oq0l22v43rq7yz2r \
+ 1620  sudo kubectl get nodes
+ 1621  kubectl get nodes
+ 1622  kubeadm join 172.16.51.40:6443 --token tc74sf.oq0l22v43rq7yz2r \
+ 1623  kubectl get nodes
+ 1624  kubectl get pods --all-namespaces
+ 1625  kubectl get nodes
+ 1626  kubectl get pods --all-namespaces
+ 1627  kubectl get nodes
+ 1628  sudo ufw allow 6443
+ 1629  kubectl get nodes
+ 1630  kubectl get pods --all-namespaces
+ 1631  kubectl get nodes
+ 1632  kubectl create deployment nginx-app --image=nginx --replicas=2
+ 1633  kubectl get deployments
+ 1634  kubectl get pods
+ 1635  kubectl expose deployment nginx-app --type=NodePort --port-80
+ 1636  kubectl expose deployment nginx-app --type=NodePort --port=80
+ 1637  kubectl get svc
+ 1638  kubectl get pods
+ 1639  kubectl get svc
+ 1640  kubectl delete deployments nginx-app
+ 1641  kubectl delete pods nginx-app
+ 1642  kubectl delete svc nginx-app
+ 1643  kubectl get pos
+ 1644  kubectl get pods
+ 1645  kubectl get svc
+ 1646  kubectl get deployments
+ 1647  kubectl create deployment bookalbum --image=sreedocker123
+ 1648  /
+ 1649  kubectl create deployment bookalbum --image=sreedocker123/mybookappalbumimage --replicas=2
+ 1650  kubectl delete deployment bookalbum
+ 1651  kubectl create deployment bookalbum --image=sreedocker123/mybookappalbumimage --replicas=2
+ 1652  kubectl expose deployment bookalbum --type=NodePort --port=80
+ 1653  kubectl get svc
+ 1654  sudo git clone https://github.com/sreepathysois/phpmysql-app.git
+ 1655  cd phpmysql-app/
+ 1656  ls
+ 1657  kubectl appy -f ecommerce_php_app_deployment.yaml 
+ 1658  kubectl apply -f ecommerce_php_app_deployment.yaml 
+ 1659  kubectl apply -f ecommerce_php_app_service.yaml 
+ 1660  kubectl apply -f ecommerce_mysql_db_deployment.yaml 
+ 1661  kubectl apply -f ecommerce_mysql_db_service.yaml 
+ 1662  kubectl get pods
+ 1663  vi ecommerce_php_app_deployment.yaml 
+ 1664  kubectl get pods
+ 1665  kubectl delete deployments ecommwebserver
+ 1666  kubectl delete deployments db
+ 1667  kubectl delete svc ecommwebserver
+ 1668  kubectl delete svc ecommwebserver-service
+ 1669  kubectl get svc
+ 1670  kubectl delete svc ecommwebserver
+ 1671  kubectl delete svc ecommercewebserver
+ 1672  kubectl delete svc db
+ 1673  kubectl apply -f ecommerce_php_app_deployment.yaml 
+ 1674  kubectl get pods
+ 1675  kubectl delete deployments ecommwebserver
+ 1676  sudo vi ecommerce_php_app_deployment.yaml 
+ 1677  kubectl apply -f ecommerce_php_app_deployment.yaml 
+ 1678  kubectl get pods
+ 1679  sudo vi ecommerce_mysql_db_deployment.yaml 
+ 1680  kubectl apply -f ecommerce_mysql_db_deployment.yaml 
+ 1681  kubectl get pods
+ 1682  kubectl apply -f ecommerce_mysql_db_service.yaml 
+ 1683  kubectl apply -f ecommerce_php_app_service.yaml 
+ 1684  kubectl get pods
+ 1685  kubectlexec -it ecommwebserver-5b484db679-b4frs bash
+ 1686  kubectl exec -it ecommwebserver-5b484db679-b4frs bash
+ 1687  kubectl get pods
+ 1688  kubectl exec -it ecommwebserver-5b484db679-b4frs bash
+ 1689  vi ecommerce_php_app_deployment.yaml 
+ 1690  kubectl exec -it ecommwebserver bash
+ 1691  kubectl get deployments
+ 1692  kubectl get pods
+ 1693  kubectl exec -it ecommwebserver-5b484db679-b4frs bash
+ 1694  kubectl exec --stdin --tty ecommwebserver-5b484db679-b4frs -- /bin/bash
+ 1695  kubectl get pods
+ 1696  docker ps
+ 1697  sudo docker ps
+ 1698  sudo ufw allow 10250
+ 1699  kubectl exec --stdin --tty ecommwebserver-5b484db679-b4frs -- /bin/bash
+ 1700  kubectl inspect ecommwebserver-5b484db679-b4frs
+ 1701  kubectl describe  ecommwebserver-5b484db679-b4frs
+ 1702  kubectl describe  deploymnmts ecommwebserver-5b484db679-b4frs
+ 1703  kubectl inspect  ecommwebserver-5b484db679-b4frs
+ 1704  kubectl get svc
+ 1705  kubectl exec --stdin --tty ecommwebserver-5b484db679-b4frs -- /bin/bash
+ 1706  kubectl describe  deploymnmt ecommwebserver-5b484db679-b4frs
+ 1707  kubectl describe  deploymnmt ecommwebs
+ 1708  kubectl describe  deployment ecommwebserver-5b484db679-b4frs
+ 1709  kubectl describe  deployment ecommwebserver
+ 1710  kubectl describe  pod ecommwebserver-5b484db679-b4frs
+ 1711  kubectl get pods
+ 1712  kubectl describe  pod db-54b94bb67b-d84f8
+ 1713  kubectl exec --stdin --tty ecommwebserver-5b484db679-b4frs -- /bin/bash
+ 1714  ctr image ls
+ 1715  sudo ctr image ls
+ 1716  sudo docker ps
+ 1717  kubectl describe  pod ecommwebserver-5b484db679-b4frs
+ 1718  kubectl exec --stdin --tty ecommwebserver-5b484db679-b4frs -- bash
+ 1719  kubectl exec --stdin --tty ecommwebserver-5b484db679-b4frs -- /bin/bash
+ 1720  kubectl exec --stdin --tty ecommwebserver-5b484db679-b4frs --bash
+ 1721  kubectl exec --stdin --tty ecommwebserver-5b484db679-b4frs -- bash
+ 1722  vi ecommerce_php_app_deployment.yaml 
+ 1723  vi ecommerce_mysql_db_
+ 1724  vi ecommerce_mysql_db_deployment.yaml 
+ 1725  sudo kubectl delete -f ecommerce_php_app_deployment.yaml 
+ 1726  kubectl delete -f ecommerce_php_app_deployment.yaml 
+ 1727  kubectl delete -f ecommerce_php_app_service.yaml 
+ 1728  kubectl delete -f ecommerce_mysql_db_deployment.yaml 
+ 1729  kubectl delete -f ecommerce_mysql_db_service.yaml 
+ 1730  kubectl delte deployment book-album
+ 1731  kubectl delete deployment book-album
+ 1732  kubectl delete deployment bookalbum
+ 1733  kubectl delete svc  bookalbum
+ 1734  kubectl delete pod bookalbum
+ 1735  kubectl get pods
+ 1736  ip a
+ 1737  hostname
+ 1738  kubectl get nodes
+ 1739  sudo kubectl get nodes
+ 1740  source ~/.kube/config 
+ 1741  export ~/.kube/config 
+ 1742  cd ~/.kube/
+ 1743  ls
+ 1744  source config 
+ 1745  export config
+ 1746  kubectl get nodes
+ 1747  kubectl get pods
+ 1748  export cvd
+ 1749  cd
+ 1750  cd /
+ 1751  cd /etc
+ 1752  cd kubernetes
+ 1753  export admin.conf
+ 1754  ls
+ 1755  source admin.conf
+ 1756  sudo source admin.conf
+ 1757  source admin.conf
+ 1758  cd
+ 1759  pwd
+ 1760  sudo kubectl get pods
+ 1761  ip a
+ 1762  ping 172.16.51.48
+ 1763  sudo docker ps
+ 1764  sudo kubectl get pods
+ 1765  sudo kubectl get nodes
+ 1766  kubectl get nodes
+ 1767  sudo ufw allow 6443
+ 1768  kubectl get nodes
+ 1769  export ~/.kube/config
+ 1770  export /etc/kubernetes/admin.conf
+ 1771  source  /etc/kubernetes/admin.conf
+ 1772  sudo source  /etc/kubernetes/admin.conf
+ 1773  sudo chmod msis:msis /etc/kubernetes/admin.conf 
+ 1774  sudo chown -R msis:msis /etc/kubernetes/admin.conf 
+ 1775  source  /etc/kubernetes/admin.conf
+ 1776  cat /etc/kubernetes/admin.conf 
+ 1777  ip a
+ 1778  kubectl get nodes
+ 1779  sudo swapoff -a
+ 1780  kubectl get nodes
+ 1781  export KUBECONFIG=/home/$(whoami)/.kube/config
+ 1782  kubectl get nodes
+ 1783  clear
+ 1784  ip a
+ 1785  cler
+ 1786  clear
+ 1787  ls
+ 1788  cd basic-php-website/
+ 1789  ls
+ 1790  sudo vi Dockerfile 
+ 1791  sudo docker build -t bookalbum .
+ 1792  clear
+ 1793  sudo docker run -it -d -p 3000:80 bookalbum:latest
+ 1794  sudo docker ps
+ 1795  sudo docker ps -a
+ 1796  sudo docker ps
+ 1797  c lear
+ 1798  clear
+ 1799  sudo docker ps
+ 1800  sudo docker logout
+ 1801  sudo docker login
+ 1802  clear
+ 1803  sudo docker images
+ 1804  sudo docker tag 1dc7c61bc973 kruthikamp/bookalbum:latest
+ 1805  sudo dockerpush kruthikamp/bookalbum:latest
+ 1806  sudo docker push kruthikamp/bookalbum:latest
+ 1807  clear
+ 1808  sudo docker images
+ 1809  hostname
+ 1810  vi /etc/hosts
+ 1811  clear
+ 1812  kubectl get nodes
+ 1813  kubectl get pods
+ 1814  kubectl get deployments
+ 1815  kubectl create deployment bookalbum --image=kruthikamp/bookalbum:latest --replicas=3
+ 1816  kubectl get deployments
+ 1817  kubectl get pods
+ 1818  kubect expose deployment bookalbum  --type=LoadBalancer --port=80
+ 1819  kubectl expose deployment bookalbum  --type=LoadBalancer --port=80
+ 1820  kubectl get svc
+ 1821  clear
+ 1822  kubectl delete deployment bookalbum
+ 1823  kubectl delete svc bookalbum
+ 1824  ls
+ 1825  vi bookalbum_deployment.yaml 
+ 1826  vi bookalbum_service.yaml 
+ 1827  kubectl apply -f bookalbum_deployment.yaml 
+ 1828  kubectl apply -f bookalbum_service.yaml 
+ 1829  kubectl get deployments
+ 1830  kubectl get pods
+ 1831  kubectl get svc
+ 1832  kubectl describe deployments bookalbum
+ 1833  kubectl get pods
+ 1834  kubectl describe pods bookalbum-84bbcbdccf-qfr5k
+ 1835  clear
+ 1836  kubectl delete -f bookalbum_deployment.yaml 
+ 1837  kubectl delete -f bookalbum_service.yaml 
+ 1838  kubectl get pods
+ 1839  kubectl get svc
+ 1840  cd
+ 1841  ls
+ 1842  cd phpmysql-app/
+ 1843  clear
+ 1844  ls
+ 1845  vi ecommerce_php_app_deployment.yaml 
+ 1846  vi ecommerce_php_app_service.yaml 
+ 1847  vi ecommerce_mysql_db_deployment.yaml 
+ 1848  vi ecommerce_mysql_db_service.yaml 
+ 1849  kubectl apply -f ecommerce_php_app_deployment.yaml ecommerce_php_app_service.yaml ecommerce_mysql_db_deployment.yaml ecommerce_mysql_db_service.yaml 
+ 1850  kubectl apply -f ecommerce_php_app_deployment.yaml 
+ 1851  kubectl apply -f ecommerce_php_app_service.yaml 
+ 1852  kubectl apply -f ecommerce_mysql_db_deployment.yaml 
+ 1853  kubectl apply -f ecommerce_mysql_db_service.yaml 
+ 1854  kubectl get deployments
+ 1855  kubectl get bpods
+ 1856  kubectl get pods
+ 1857  clear
+ 1858  kubectl get svc
+ 1859  kubectl get pods
+ 1860  kubectl describe pods db-54b94bb67b-l887f
+ 1861  clear
+ 1862  kubectl get pods
+ 1863  kubectl describe pods ecommwebserver-5b484db679-v4rqz
+ 1864  clear
+ 1865  kubectl get pods
+ 1866  kubectl exec --stdin --tty ecommwebserver-5b484db679-v4rqz -- /bin/bash
+ 1867  clear
+ 1868  cat ~/.kube/config
+ 1869  history
+
