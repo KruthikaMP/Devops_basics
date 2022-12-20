@@ -1,0 +1,208 @@
+ sudo swapoff -a
+[sudo] password for msis: 
+msis@kubemaster:~$ export KUBECONFIG=~/.kube/config
+msis@kubemaster:~$ kubectl get pods
+The connection to the server 172.16.51.66:6443 was refused - did you specify the right host or port?
+msis@kubemaster:~$ export KUBECONFIG=~/.Kube/config
+msis@kubemaster:~$ export KUBECONFIG=~/.kube/config
+msis@kubemaster:~$ kubectl get nodes
+The connection to the server 172.16.51.66:6443 was refused - did you specify the right host or port?
+msis@kubemaster:~$ sudo kubectl get nodes
+error: the server doesn't have a resource type "nodes"
+msis@kubemaster:~$ sudo kubectl get nodes^C
+msis@kubemaster:~$ vi /etc/hosts
+msis@kubemaster:~$ sudo swapoff -a
+msis@kubemaster:~$ export KUBECONFIG=~/.kube/config
+msis@kubemaster:~$ sudo kubectl get nodes
+error: the server doesn't have a resource type "nodes"
+msis@kubemaster:~$ sudo kubeadm reset
+W1220 12:28:46.600580   11025 preflight.go:55] [reset] WARNING: Changes made to this host by 'kubeadm init' or 'kubeadm join' will be reverted.
+[reset] Are you sure you want to proceed? [y/N]: y
+W1220 12:28:47.792993   11025 removeetcdmember.go:85] [reset] No kubeadm config, using etcd pod spec to get data directory
+[reset] No etcd config found. Assuming external etcd
+[reset] Please, manually reset etcd to prevent further issues
+[reset] Stopping the kubelet service
+[reset] Unmounting mounted directories in "/var/lib/kubelet"
+W1220 12:28:48.350052   11025 cleanupnode.go:94] [reset] Failed to remove containers: output: E1220 12:28:48.347425   11032 remote_runtime.go:377] "ListPodSandbox with filter from runtime service failed" err="rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService" filter="&PodSandboxFilter{Id:,State:nil,LabelSelector:map[string]string{},}"
+time="2022-12-20T12:28:48+05:30" level=fatal msg="listing pod sandboxes: rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService"
+, error: exit status 1
+[reset] Deleting contents of directories: [/etc/kubernetes/manifests /etc/kubernetes/pki]
+[reset] Deleting files: [/etc/kubernetes/admin.conf /etc/kubernetes/kubelet.conf /etc/kubernetes/bootstrap-kubelet.conf /etc/kubernetes/controller-manager.conf /etc/kubernetes/scheduler.conf]
+[reset] Deleting contents of stateful directories: [/var/lib/kubelet]
+
+The reset process does not clean CNI configuration. To do so, you must remove /etc/cni/net.d
+
+The reset process does not reset or clean up iptables rules or IPVS tables.
+If you wish to reset iptables, you must do so manually by using the "iptables" command.
+
+If your cluster was setup to utilize IPVS, run ipvsadm --clear (or similar)
+to reset your system's IPVS tables.
+
+The reset process does not clean your kubeconfig files and you must remove them manually.
+Please, check the contents of the $HOME/.kube/config file.
+msis@kubemaster:~$ sudo kubeadm init
+I1220 12:29:13.088999   11041 version.go:256] remote version is much newer: v1.26.0; falling back to: stable-1.25
+[init] Using Kubernetes version: v1.25.5
+[preflight] Running pre-flight checks
+error execution phase preflight: [preflight] Some fatal errors occurred:
+	[ERROR CRI]: container runtime is not running: output: E1220 12:29:14.060843   11050 remote_runtime.go:948] "Status from runtime service failed" err="rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService"
+time="2022-12-20T12:29:14+05:30" level=fatal msg="getting status of runtime: rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService"
+, error: exit status 1
+[preflight] If you know what you are doing, you can make a check non-fatal with `--ignore-preflight-errors=...`
+To see the stack trace of this error execute with --v=5 or higher
+msis@kubemaster:~$ sudo service docker status
+● docker.service - Docker Application Container Engine
+     Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset>
+     Active: active (running) since Tue 2022-12-20 10:44:36 IST; 1h 44min ago
+TriggeredBy: ● docker.socket
+       Docs: https://docs.docker.com
+   Main PID: 1348 (dockerd)
+      Tasks: 10
+     Memory: 95.0M
+     CGroup: /system.slice/docker.service
+             └─1348 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/cont>
+
+Dec 20 10:44:32 kubemaster.sois.com dockerd[1348]: time="2022-12-20T10:44:32.73>
+Dec 20 10:44:32 kubemaster.sois.com dockerd[1348]: time="2022-12-20T10:44:32.73>
+Dec 20 10:44:32 kubemaster.sois.com dockerd[1348]: time="2022-12-20T10:44:32.73>
+Dec 20 10:44:32 kubemaster.sois.com dockerd[1348]: time="2022-12-20T10:44:32.76>
+Dec 20 10:44:34 kubemaster.sois.com dockerd[1348]: time="2022-12-20T10:44:34.33>
+Dec 20 10:44:34 kubemaster.sois.com dockerd[1348]: time="2022-12-20T10:44:34.62>
+Dec 20 10:44:35 kubemaster.sois.com dockerd[1348]: time="2022-12-20T10:44:35.79>
+Dec 20 10:44:35 kubemaster.sois.com dockerd[1348]: time="2022-12-20T10:44:35.81>
+Dec 20 10:44:36 kubemaster.sois.com systemd[1]: Started Docker Application Cont>
+Dec 20 10:44:36 kubemaster.sois.com dockerd[1348]: time="2022-12-20T10:44:36.35>
+
+msis@kubemaster:~$ sudo docker ps
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+msis@kubemaster:~$ sudo systemctl restart containerd
+msis@kubemaster:~$ sudo kubeadm init
+I1220 12:29:57.871217   11249 version.go:256] remote version is much newer: v1.26.0; falling back to: stable-1.25
+[init] Using Kubernetes version: v1.25.5
+[preflight] Running pre-flight checks
+error execution phase preflight: [preflight] Some fatal errors occurred:
+	[ERROR CRI]: container runtime is not running: output: E1220 12:29:58.850684   11258 remote_runtime.go:948] "Status from runtime service failed" err="rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService"
+time="2022-12-20T12:29:58+05:30" level=fatal msg="getting status of runtime: rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService"
+, error: exit status 1
+[preflight] If you know what you are doing, you can make a check non-fatal with `--ignore-preflight-errors=...`
+To see the stack trace of this error execute with --v=5 or higher
+msis@kubemaster:~$ sudo rm /etc/containerd/config.toml
+msis@kubemaster:~$ sudo systemctl restart containerd
+msis@kubemaster:~$ sudo kubeadm init
+I1220 12:30:39.735841   11596 version.go:256] remote version is much newer: v1.26.0; falling back to: stable-1.25
+[init] Using Kubernetes version: v1.25.5
+[preflight] Running pre-flight checks
+[preflight] Pulling images required for setting up a Kubernetes cluster
+[preflight] This might take a minute or two, depending on the speed of your internet connection
+[preflight] You can also perform this action in beforehand using 'kubeadm config images pull'
+[certs] Using certificateDir folder "/etc/kubernetes/pki"
+[certs] Generating "ca" certificate and key
+[certs] Generating "apiserver" certificate and key
+[certs] apiserver serving cert is signed for DNS names [kubemaster.sois.com kubernetes kubernetes.default kubernetes.default.svc kubernetes.default.svc.cluster.local] and IPs [10.96.0.1 172.16.51.66]
+[certs] Generating "apiserver-kubelet-client" certificate and key
+[certs] Generating "front-proxy-ca" certificate and key
+[certs] Generating "front-proxy-client" certificate and key
+[certs] Generating "etcd/ca" certificate and key
+[certs] Generating "etcd/server" certificate and key
+[certs] etcd/server serving cert is signed for DNS names [kubemaster.sois.com localhost] and IPs [172.16.51.66 127.0.0.1 ::1]
+[certs] Generating "etcd/peer" certificate and key
+[certs] etcd/peer serving cert is signed for DNS names [kubemaster.sois.com localhost] and IPs [172.16.51.66 127.0.0.1 ::1]
+[certs] Generating "etcd/healthcheck-client" certificate and key
+[certs] Generating "apiserver-etcd-client" certificate and key
+[certs] Generating "sa" key and public key
+[kubeconfig] Using kubeconfig folder "/etc/kubernetes"
+[kubeconfig] Writing "admin.conf" kubeconfig file
+[kubeconfig] Writing "kubelet.conf" kubeconfig file
+[kubeconfig] Writing "controller-manager.conf" kubeconfig file
+[kubeconfig] Writing "scheduler.conf" kubeconfig file
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Starting the kubelet
+[control-plane] Using manifest folder "/etc/kubernetes/manifests"
+[control-plane] Creating static Pod manifest for "kube-apiserver"
+[control-plane] Creating static Pod manifest for "kube-controller-manager"
+[control-plane] Creating static Pod manifest for "kube-scheduler"
+[etcd] Creating static Pod manifest for local etcd in "/etc/kubernetes/manifests"
+[wait-control-plane] Waiting for the kubelet to boot up the control plane as static Pods from directory "/etc/kubernetes/manifests". This can take up to 4m0s
+[apiclient] All control plane components are healthy after 17.503804 seconds
+[upload-config] Storing the configuration used in ConfigMap "kubeadm-config" in the "kube-system" Namespace
+[kubelet] Creating a ConfigMap "kubelet-config" in namespace kube-system with the configuration for the kubelets in the cluster
+[upload-certs] Skipping phase. Please see --upload-certs
+[mark-control-plane] Marking the node kubemaster.sois.com as control-plane by adding the labels: [node-role.kubernetes.io/control-plane node.kubernetes.io/exclude-from-external-load-balancers]
+[mark-control-plane] Marking the node kubemaster.sois.com as control-plane by adding the taints [node-role.kubernetes.io/control-plane:NoSchedule]
+[bootstrap-token] Using token: 9nqs66.7igatp0tcdcx5h5i
+[bootstrap-token] Configuring bootstrap tokens, cluster-info ConfigMap, RBAC Roles
+[bootstrap-token] Configured RBAC rules to allow Node Bootstrap tokens to get nodes
+[bootstrap-token] Configured RBAC rules to allow Node Bootstrap tokens to post CSRs in order for nodes to get long term certificate credentials
+[bootstrap-token] Configured RBAC rules to allow the csrapprover controller automatically approve CSRs from a Node Bootstrap Token
+[bootstrap-token] Configured RBAC rules to allow certificate rotation for all node client certificates in the cluster
+[bootstrap-token] Creating the "cluster-info" ConfigMap in the "kube-public" namespace
+[kubelet-finalize] Updating "/etc/kubernetes/kubelet.conf" to point to a rotatable kubelet client certificate and key
+[addons] Applied essential addon: CoreDNS
+[addons] Applied essential addon: kube-proxy
+
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+Alternatively, if you are the root user, you can run:
+
+  export KUBECONFIG=/etc/kubernetes/admin.conf
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 172.16.51.66:6443 --token 9nqs66.7igatp0tcdcx5h5i \
+	--discovery-token-ca-cert-hash sha256:195ffcbc876e41316074014ad1eb8be5bf7ab456301f33088e460a24ad6876f2 
+msis@kubemaster:~$ mkdir -p $HOME/.kube
+msis@kubemaster:~$ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+cp: overwrite '/home/msis/.kube/config'? yes
+msis@kubemaster:~$ sudo chown $(id -u):$(id -g) $HOME/.kube/config
+msis@kubemaster:~$ sudo kubectl get nodes
+error: the server doesn't have a resource type "nodes"
+msis@kubemaster:~$ sudo kubectl get pods
+error: the server doesn't have a resource type "pods"
+msis@kubemaster:~$  kubectl get pods
+No resources found in default namespace.
+msis@kubemaster:~$ kubectl get nodes
+NAME                  STATUS     ROLES           AGE     VERSION
+kubemaster.sois.com   Ready      control-plane   4m27s   v1.25.4
+kubenode.sois.com     NotReady   <none>          8s      v1.25.4
+msis@kubemaster:~$ kubectl get nodes
+NAME                  STATUS     ROLES           AGE     VERSION
+kubemaster.sois.com   Ready      control-plane   4m29s   v1.25.4
+kubenode.sois.com     NotReady   <none>          10s     v1.25.4
+msis@kubemaster:~$ kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+kubectl version: command not found
+Unable to connect to the server: dial tcp: lookup cloud.weave.works on 127.0.0.53:53: no such host
+msis@kubemaster:~$ sudo kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+kubectl version: command not found
+Error from server (NotFound): the server could not find the requested resource
+msis@kubemaster:~$ sudo kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(sudo kubectl version | base64 | tr -d '\n')"
+sudo: kubectl version: command not found
+Error from server (NotFound): the server could not find the requested resource
+msis@kubemaster:~$  kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+serviceaccount/weave-net created
+clusterrole.rbac.authorization.k8s.io/weave-net created
+clusterrolebinding.rbac.authorization.k8s.io/weave-net created
+role.rbac.authorization.k8s.io/weave-net created
+rolebinding.rbac.authorization.k8s.io/weave-net created
+daemonset.apps/weave-net created
+msis@kubemaster:~$ kubectl get nodes
+NAME                  STATUS   ROLES           AGE     VERSION
+kubemaster.sois.com   Ready    control-plane   5m47s   v1.25.4
+kubenode.sois.com     Ready    <none>          88s     v1.25.4
+msis@kubemaster:~$ kubectl get nodes
+NAME                  STATUS   ROLES           AGE     VERSION
+kubemaster.sois.com   Ready    control-plane   5m48s   v1.25.4
+kubenode.sois.com     Ready    <none>          89s     v1.25.4
+msis@kubemaster:~$ 
+
+

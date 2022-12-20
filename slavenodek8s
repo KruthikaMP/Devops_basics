@@ -1,0 +1,89 @@
+ssh msis@172.16.51.69
+msis@172.16.51.69's password: 
+Welcome to Ubuntu 20.04.5 LTS (GNU/Linux 5.15.0-56-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+25 updates can be applied immediately.
+To see these additional updates run: apt list --upgradable
+
+Your Hardware Enablement Stack (HWE) is supported until April 2025.
+Last login: Tue Dec  6 13:48:57 2022 from 172.16.51.66
+msis@kubenode:~$ sudo kubeadm join 172.16.51.66:6443 --token 9nqs66.7igatp0tcdcx5h5i --discovery-token-skip-ca-verification_unsafe
+[sudo] password for msis: 
+^C^Csudo: 1 incorrect password attempt
+msis@kubenode:~$ sudo kubeadm join 172.16.51.66:6443 --token 9nqs66.7igatp0tcdcx5h5i --discovery-token-skip-ca-verification-undafe
+[sudo] password for msis: 
+msis@kubenode:~$ sudo kubeadm join 172.16.51.66:6443 --token 9nqs66.7igatp0tcdcx5h5i --discovery-token-skip-ca-verification-unsafe
+[sudo] password for msis: 
+unknown flag: --discovery-token-skip-ca-verification-unsafe
+To see the stack trace of this error execute with --v=5 or higher
+msis@kubenode:~$ sudo swapoff -a
+msis@kubenode:~$ sudo kubeadm reset
+[reset] Reading configuration from the cluster...
+[reset] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -o yaml'
+W1220 12:34:08.230602  212704 reset.go:103] [reset] Unable to fetch the kubeadm-config ConfigMap from cluster: failed to get config map: Get "https://172.16.51.69:6443/api/v1/namespaces/kube-system/configmaps/kubeadm-config?timeout=10s": dial tcp 172.16.51.69:6443: connect: connection refused
+W1220 12:34:08.231484  212704 preflight.go:55] [reset] WARNING: Changes made to this host by 'kubeadm init' or 'kubeadm join' will be reverted.
+[reset] Are you sure you want to proceed? [y/N]: y
+W1220 12:34:09.568185  212704 removeetcdmember.go:85] [reset] No kubeadm config, using etcd pod spec to get data directory
+[reset] Stopping the kubelet service
+[reset] Unmounting mounted directories in "/var/lib/kubelet"
+W1220 12:34:10.115794  212704 cleanupnode.go:94] [reset] Failed to remove containers: output: E1220 12:34:10.114445  212711 remote_runtime.go:377] "ListPodSandbox with filter from runtime service failed" err="rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService" filter="&PodSandboxFilter{Id:,State:nil,LabelSelector:map[string]string{},}"
+time="2022-12-20T12:34:10+05:30" level=fatal msg="listing pod sandboxes: rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService"
+, error: exit status 1
+[reset] Deleting contents of directories: [/etc/kubernetes/manifests /etc/kubernetes/pki]
+[reset] Deleting files: [/etc/kubernetes/admin.conf /etc/kubernetes/kubelet.conf /etc/kubernetes/bootstrap-kubelet.conf /etc/kubernetes/controller-manager.conf /etc/kubernetes/scheduler.conf]
+[reset] Deleting contents of stateful directories: [/var/lib/etcd /var/lib/kubelet]
+
+The reset process does not clean CNI configuration. To do so, you must remove /etc/cni/net.d
+
+The reset process does not reset or clean up iptables rules or IPVS tables.
+If you wish to reset iptables, you must do so manually by using the "iptables" command.
+
+If your cluster was setup to utilize IPVS, run ipvsadm --clear (or similar)
+to reset your system's IPVS tables.
+
+The reset process does not clean your kubeconfig files and you must remove them manually.
+Please, check the contents of the $HOME/.kube/config file.
+msis@kubenode:~$ sudo kubeadm join 172.16.51.66:6443 --token 9nqs66.7igatp0tcdcx5h5i --discovery-token-skip-ca-verification-unsafe
+unknown flag: --discovery-token-skip-ca-verification-unsafe
+To see the stack trace of this error execute with --v=5 or higher
+msis@kubenode:~$ sudo kubeadm join 172.16.51.66:6443 --token 9nqs66.7igatp0tcdcx5h5i --discovery-token-skip-unsafe-ca-verification
+unknown flag: --discovery-token-skip-unsafe-ca-verification
+To see the stack trace of this error execute with --v=5 or higher
+msis@kubenode:~$ sudo kubeadm join 172.16.51.66:6443 --token 9nqs66.7igatp0tcdcx5h5i --discovery-token-unsafe-skip-ca-verification
+[preflight] Running pre-flight checks
+error execution phase preflight: [preflight] Some fatal errors occurred:
+	[ERROR CRI]: container runtime is not running: output: E1220 12:35:31.467700  212743 remote_runtime.go:948] "Status from runtime service failed" err="rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService"
+time="2022-12-20T12:35:31+05:30" level=fatal msg="getting status of runtime: rpc error: code = Unimplemented desc = unknown service runtime.v1alpha2.RuntimeService"
+, error: exit status 1
+[preflight] If you know what you are doing, you can make a check non-fatal with `--ignore-preflight-errors=...`
+To see the stack trace of this error execute with --v=5 or higher
+msis@kubenode:~$ sudo rm /etc/containerd/config.toml 
+msis@kubenode:~$ sudo systemctl restart containerd
+msis@kubenode:~$ sudo kubeadm join 172.16.51.66:6443 --token 9nqs66.7igatp0tcdcx5h5i --discovery-token-skip-unsafe-ca-verification
+unknown flag: --discovery-token-skip-unsafe-ca-verification
+To see the stack trace of this error execute with --v=5 or higher
+msis@kubenode:~$ sudo kubeadm join 172.16.51.66:6443 --token 9nqs66.7igatp0tcdcx5h5i --discovery-token-unsafe-skip-ca-verification
+[preflight] Running pre-flight checks
+[preflight] Reading configuration from the cluster...
+[preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -o yaml'
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Starting the kubelet
+[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...
+
+This node has joined the cluster:
+* Certificate signing request was sent to apiserver and a response was received.
+* The Kubelet was informed of the new secure connection details.
+
+Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
+
+msis@kubenode:~$ exit
+logout
+msis@kubemaster:~$ surreal import --user root --pass root --ns test --db test devices.sql
+
+
+
