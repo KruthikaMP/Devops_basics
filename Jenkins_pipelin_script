@@ -1,0 +1,55 @@
+pipeline {
+    agent{
+        label 'UBUNTUAGENT1'
+    }
+
+     tools {
+        // Install the Maven version configured as "M3" and add it to the path.
+        maven "Mymaven"
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                // Get some code from a GitHub repository
+                 checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], gitTool: 'ubuntugit', userRemoteConfigs: [[url: 'https://github.com/djgit17/DockerMavenJava.git']]]
+
+                // Run Maven on a Unix agent.
+                sh "mvn clean package"
+
+                // To run Maven on a Windows agent, use
+                // bat "mvn -Dmaven.test.failure.ignore=true clean package"
+            }
+
+        }
+        
+        stage('Build docker image') {
+            steps {
+                script {
+                    
+                    sh 'sudo docker build -t kruthikamp/simpledocker_test1 .'
+                }
+                
+            }
+        }
+        stage('Run docker container') {
+            steps {
+                script {
+                    
+                    sh 'sudo docker run -d --name mavendockerrun_14575 -p 2100:8080 kruthikamp/simpledocker_test1'
+                }
+                
+            }
+        }
+        stage('Push to DockerHub') {
+            steps {
+                script {
+                  
+                        sh 'sudo docker login -u kruthikamp -p Sandeep@1996'
+                        sh 'sudo docker push kruthikamp/simpledocker_test1'
+                    
+                }
+            }
+        }
+    }
+}
