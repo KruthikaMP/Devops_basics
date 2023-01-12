@@ -1,0 +1,10 @@
+<role rolename="admin-gui,manager-gui,manager-script,manager-jmx,manager-status,admin-gui"/>
+<user username="tomcat" password="msis@123" roles="admin-gui,manager-gui,manager-script"/>
+
+sudo apt-get update -y
+sudo apt-get install nodejs -y
+sudo apt-get install npm -y
+
+sudo npm install
+sudo npm install -g pm2
+sudo pm2 start app.js
